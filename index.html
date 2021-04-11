@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script src="./leaflet.shapefile-gh-pages/leaflet.shapefile-gh-pages/shp.js"></script>
+    <script src="./leaflet.shapefile-gh-pages/leaflet.shapefile-gh-pages/leaflet.shpfile.js"></script>
+</head>
+
+<body>
+    <style>
+        /* Map */
+        #map {
+            height: 300px;
+        }
+
+        input {
+            margin-top: 10px;
+        }
+    </style>
+    <div id="map"></div>
+
+    <script>
+        map = L.map('map', {
+            center: [7.2, 40.9],
+            zoom: 2
+        });
+
+        // L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        // }).addTo(map);
+        shp("egypt/gis_osm_landuse_a_free_1").then(function (geojson) {	//More info: https://github.com/calvinmetcalf/shapefile-js
+            var layer = L.shapefile(geojson).addTo(map);//More info: https://github.com/calvinmetcalf/leaflet.shapefile
+            console.log(layer);
+        })
+            .catch(err => {
+                console.log(err)
+            })
+    </script>
+</body>
+
+</html>
